@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -20,7 +21,7 @@ export class ItemsController {
   }
 
   @Get(':id') // /items/id
-  findById(@Param('id') id: string): Item {
+  findById(@Param('id', ParseUUIDPipe) id: string): Item {
     return this.itemsService.findByID(id);
   }
 
@@ -31,12 +32,12 @@ export class ItemsController {
 
   // PATCHとは存在するデータを更新するメソッドで、CRUDではupdateに当てはまる
   @Patch(':id')
-  updateStatus(@Param('id') id: string): Item {
+  updateStatus(@Param('id', ParseUUIDPipe) id: string): Item {
     return this.itemsService.updateStatus(id);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): void {
+  delete(@Param('id', ParseUUIDPipe) id: string): void {
     this.itemsService.delete(id);
   }
 }
