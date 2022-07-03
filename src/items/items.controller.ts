@@ -16,13 +16,13 @@ import { ItemsService } from './items.service';
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
   @Get()
-  findAll(): Item[] {
-    return this.itemsService.findAll();
+  async findAll(): Promise<Item[]> {
+    return await this.itemsService.findAll();
   }
 
-  @Get(':id') // /items/id
-  findById(@Param('id', ParseUUIDPipe) id: string): Item {
-    return this.itemsService.findByID(id);
+  @Get(':id')
+  async findById(@Param('id', ParseUUIDPipe) id: string): Promise<Item> {
+    return await this.itemsService.findByID(id);
   }
 
   @Post()
@@ -31,13 +31,13 @@ export class ItemsController {
   }
 
   // PATCHとは存在するデータを更新するメソッドで、CRUDではupdateに当てはまる
-  // @Patch(':id')
-  // updateStatus(@Param('id', ParseUUIDPipe) id: string): Item {
-  //   return this.itemsService.updateStatus(id);
-  // }
+  @Patch(':id')
+  async updateStatus(@Param('id', ParseUUIDPipe) id: string): Promise<Item> {
+    return await this.itemsService.updateStatus(id);
+  }
 
   @Delete(':id')
-  delete(@Param('id', ParseUUIDPipe) id: string): void {
-    this.itemsService.delete(id);
+  async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
+    return await this.itemsService.delete(id);
   }
 }

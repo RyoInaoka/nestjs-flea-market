@@ -7,7 +7,7 @@ import { ItemStatus } from './item-status.enum';
 @EntityRepository(Item)
 export class ItemRepository extends Repository<Item> {
   // データベースの処理は非同期で行う
-  async creatItem(createItemDto: CreateItemDto): Promise<Item> {
+  async createItem(createItemDto: CreateItemDto): Promise<Item> {
     const { name, price, description } = createItemDto;
     const item = this.create({
       name,
